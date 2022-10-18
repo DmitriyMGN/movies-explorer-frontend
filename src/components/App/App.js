@@ -1,4 +1,5 @@
 import Header from "../Header/Header.js";
+import Footer from "../Footer/Footer.js";
 function App() {
 
 
@@ -6,7 +7,7 @@ return (
     // <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
       <Header  />
-      {/* <Footer /> */}
+      <Footer />
       </div>
     // </CurrentUserContext.Provider>
 );
