@@ -1,6 +1,7 @@
 .promo {
-  min-width: 1200px;
+  max-width: 1200px;
   min-height: 493px;
+  margin: 0 auto;
   background-color:  #F5F5F5;
 }
 
