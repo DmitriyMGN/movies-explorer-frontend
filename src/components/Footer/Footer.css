@@ -2,7 +2,7 @@
   max-width: 1140px;
   min-height: 172px;
   padding: 0 70px;
-  background-color: #E8E8E8;
+  background-color:  #F5F5F5;
   display: flex;
   flex-direction: column;
 }
@@ -27,7 +27,7 @@
 }
 
 .navbar__element_footer {
-  margin-left: 20px;
+  margin-left: 20px 0 20px 20px;
 }
 
 .footer__text {
