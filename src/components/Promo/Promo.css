@@ -16,23 +16,3 @@
   line-height: 58px;
   text-align: center;
 }
-
-.promo-navbar {
-  display: flex;
-  justify-content: center;
-}
-
-.promo-navbar__button {
-  min-height: 30px;
-  min-width: 90px;
-  margin: 0 10px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  background: #E8E8E8;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}

@@ -1,0 +1,91 @@
+.project {
+  max-width: 1280px;
+  min-height: 608px;
+  padding: 0 70px;
+}
+
+.title {
+  padding: 110px 0 23px;
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  border-bottom: 1px solid black;
+}
+
+.project__info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-about {
+  max-width: 550px;
+}
+
+.project-about__title {
+  padding: 70px 0 26px;
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.project-about__paragraph {
+  padding: 0 0 110px;
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.project-graph {
+  display: flex;
+}
+
+.project-graph__backend {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 228px;
+  min-height: 36px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #2BE080;
+}
+
+.project-graph__frontend {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 912px;
+  min-height: 36px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #F2F2F2;;
+}
+
+.project-graph__backend_text {
+  background-color: white;
+  color: #A0A0A0;
+}
+
+.project-graph__frontend_text {
+  background-color: white;
+  color: #A0A0A0;
+}

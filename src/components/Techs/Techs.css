@@ -1,0 +1,55 @@
+.techs {
+  max-width: 1280px;
+  min-height: 625px;
+  background-color:  #F5F5F5; 
+  padding-left: 70px;
+}
+
+.techs__title {
+  margin: 0;
+  padding: 90px 0 26px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+}
+
+.techs__paragraph {
+  max-width: 460px;
+  padding: 0;
+  margin: 0 auto 100px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.techs__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.techs__item {
+  width: 90px;
+  min-height: 60px;
+  margin: 0 10px;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  background-color:#E8E8E8;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

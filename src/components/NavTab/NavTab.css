@@ -1,91 +1,19 @@
 .navtab {
-  max-width: 1280px;
-  min-height: 608px;
-  padding: 0 70px;
-}
-
-.navtab__title {
-  padding: 110px 0 23px;
-  margin: 0;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 27px;
-  border-bottom: 1px solid black;
-}
-
-.navtab__info {
-  display: flex;
-  justify-content: space-between;
-}
-
-.navtab-about {
-  max-width: 550px;
-}
-
-.navtab-about__title {
-  padding: 70px 0 26px;
-  margin: 0;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-}
-
-.navtab-about__paragraph {
-  padding: 0 0 110px;
-  margin: 0;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.navtab-graph {
-  display: flex;
-}
-
-.navtab-graph__backend {
-  padding: 0;
-  margin: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-width: 228px;
-  min-height: 36px;
+}
+
+.navtab__button {
+  min-height: 30px;
+  min-width: 90px;
+  margin: 0 10px;
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  background-color: #2BE080;
-}
-
-.navtab-graph__frontend {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 912px;
-  min-height: 36px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  background-color: #F2F2F2;;
-}
-
-.navtab-graph__backend_text {
-  background-color: white;
-  color: #A0A0A0;
-}
-
-.navtab-graph__frontend_text {
-  background-color: white;
-  color: #A0A0A0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  background: #E8E8E8;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
