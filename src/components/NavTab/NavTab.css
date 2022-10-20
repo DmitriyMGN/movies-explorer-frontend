@@ -4,9 +4,10 @@
 }
 
 .navtab__button {
-  min-height: 30px;
-  min-width: 90px;
-  margin: 0 10px;
+  min-height: 36px;
+  min-width: 96px;
+  margin: 0 5px;
+  padding: 0;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
@@ -16,4 +17,11 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+
+@media screen and (max-width:320px) {
+  .project-about__paragraph {
+    min-height: 36px;
+    min-width: 96px;
+  }
 }
