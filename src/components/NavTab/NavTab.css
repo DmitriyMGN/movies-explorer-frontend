@@ -3,9 +3,14 @@
   justify-content: center;
 }
 
+@media screen and (max-width:590px) {
+  .navtab {
+    padding: 0 0 20px;
+  }
+}
 .navtab__button {
   min-height: 36px;
-  min-width: 96px;
+  width: 96px;
   margin: 0 5px;
   padding: 0;
   font-family: 'Inter';
@@ -22,6 +27,6 @@
 @media screen and (max-width:320px) {
   .navtab__button  {
     min-height: 26px;
-    min-width: 82px;
+    width: 82px;
   }
 }

@@ -15,11 +15,18 @@
   .techs {
     min-height: 651px;
     padding: 0 18px;
+    background-color:  white;
   }
 }
 
 .title_techs {
-  padding-top: 90px;
+  padding-top: 100px;
+}
+
+@media screen and (max-width:1027px) {
+  .title_techs {
+    padding-top: 90px;
+  }
 }
 
 @media screen and (max-width:320px) {
@@ -46,7 +53,7 @@
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:520px) {
   .techs__title {
     font-size: 30px;
     line-height: 36px;
@@ -89,6 +96,8 @@
   list-style: none;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 @media screen and (max-width:320px) {
@@ -96,14 +105,14 @@
     max-width: 188px;
     margin: 0 auto;
     justify-content: space-between;
-    flex-wrap: wrap;
+    gap: 0;
   }
 }
 
 .techs__item {
   width: 90px;
   min-height: 60px;
-  margin: 0 5px;
+  margin: 0;
   padding: 0;
   font-family: 'Inter';
   font-style: normal;

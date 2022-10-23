@@ -12,7 +12,7 @@
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:520px) {
   .about-me {
     padding: 0 14px;
     display: flex;
@@ -24,9 +24,9 @@
   margin: 65px 0 0;
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:520px) {
   .about-me__info {
-    margin: 40px 0 0;
+    margin: 40px auto 0;
   }
 }
 
@@ -133,13 +133,14 @@
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:520px) {
   .about-me__img {
     margin: 62px auto 0;
     width: 280px;
     height: 352px;
   }
 }
+
 
 .title_about-me {
   margin: 0 70px;
