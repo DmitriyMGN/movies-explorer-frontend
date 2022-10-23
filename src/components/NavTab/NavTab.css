@@ -20,8 +20,8 @@
 }
 
 @media screen and (max-width:320px) {
-  .project-about__paragraph {
-    min-height: 36px;
-    min-width: 96px;
+  .navtab__button  {
+    min-height: 26px;
+    min-width: 82px;
   }
 }
