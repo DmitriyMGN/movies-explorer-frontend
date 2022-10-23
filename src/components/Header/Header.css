@@ -1,10 +1,24 @@
 .header {
   max-width: 1140px;
   min-height: 74px;
-  margin: 0 70px;
+  margin: 0 70px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media screen and (max-width:768px) {
+  .header {
+    max-width: 768px;
+    margin: 0 30px 20px;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .header {
+    max-width: 320px;
+    margin: 0 14px 15px;
+  }
 }
 
 .navbar {
@@ -25,10 +39,25 @@
   cursor: pointer;
 }
 
+@media screen and (max-width:320px) {
+  .navbar__element {
+    margin-left: 15px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+}
+
 .navbar__element_type_button {
   min-width: 76px;
   min-height: 32px;
   background-color: #2BE080;
   border: none;
   border-radius: 3px;
+}
+
+@media screen and (max-width:320px) {
+  .navbar__element_type_button {
+    min-width: 54px;
+    min-height: 26px;
+  }
 }

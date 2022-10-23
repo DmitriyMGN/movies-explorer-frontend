@@ -20,8 +20,8 @@ function AboutProject(props) {
           <p className="project-graph__frontend">4 недели</p>
         </div>
         <div className="project-graph">
-          <p className="project-graph__backend project-graph__backend_text">Back-end</p>
-          <p className="project-graph__frontend project-graph__frontend_text">Front-end</p>
+          <p className="project-graph__backend project-graph_text">Back-end</p>
+          <p className="project-graph__frontend project-graph_text">Front-end</p>
         </div>
     </div>
   );
