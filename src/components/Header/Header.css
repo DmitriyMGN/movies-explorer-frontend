@@ -61,3 +61,15 @@
     min-height: 26px;
   }
 }
+
+.navbar__element_avatar-icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 13px;
+  background-color:#F9F9F9;;
+  background-image: url('../../images/icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 6px;
+  border-color: transparent;
+}
