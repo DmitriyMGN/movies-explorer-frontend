@@ -1,7 +1,13 @@
 .filter {
   display: flex;
   margin-left: 29px;
-} 
+}
+
+@media screen and (max-width:550px) {
+  .filter {
+   margin: 45px 0 0;  
+  }
+}
 
 .filter__checkbox {
   display: none;
@@ -31,5 +37,12 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
+}
+
+@media screen and (max-width:320px) {
+  .filter__text {
+    font-size: 11px;
+    line-height: 18px;  
+  }
 }
 

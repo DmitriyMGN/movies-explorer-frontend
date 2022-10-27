@@ -58,7 +58,7 @@
 }
 
 .burger__links {
-  margin: 105px 0 55vh;
+  margin: 120px 0 51vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,5 +90,7 @@
 .navbar__element_burger {
   padding: 0;
   margin: 0;
+  font-size: 14px;
+  line-height: 16px;
 }
 

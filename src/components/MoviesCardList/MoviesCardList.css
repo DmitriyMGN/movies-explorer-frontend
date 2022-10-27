@@ -8,6 +8,12 @@
   }
 }
 
+@media screen and (max-width:320px) {
+  .movies {
+    padding:0 10px;
+  }
+}
+
 .movies__list {
   padding: 0;
   margin: 70px 0 60px;
@@ -25,6 +31,14 @@
     margin: 110px 0 80px;
     column-gap: 24px;
     row-gap: 35px;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .movies__list {
+    margin: 45px 0 80px;
+    padding-top: 45px;
+    row-gap: 16px;
   }
 }
 
