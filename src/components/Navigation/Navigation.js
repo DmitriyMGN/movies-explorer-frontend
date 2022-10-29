@@ -11,13 +11,23 @@ function Navigation (props) {
       <img src={mestoLogo} alt="Картинка логотипа сайта" />
       {location.pathname === '/movies' && <Link className="navbar__element navbar__element_hidden" to="">Фильмы</Link> } 
       {location.pathname === '/movies' && <Link className="navbar__element navbar__element_hidden" to="">Сохраненные фильмы</Link> }
+      {location.pathname === '/saved-movies' && <Link className="navbar__element navbar__element_hidden" to="">Фильмы</Link> } 
+      {location.pathname === '/saved-movies' && <Link className="navbar__element navbar__element_hidden" to="">Сохраненные фильмы</Link> }
+      {location.pathname === '/profile' && <Link className="navbar__element navbar__element_hidden" to="">Фильмы</Link> } 
+      {location.pathname === '/profile' && <Link className="navbar__element navbar__element_hidden" to="">Сохраненные фильмы</Link> }
     </div> 
     <div className="navbar">
       {location.pathname === '/' && <Link className="navbar__element" to="">Регистрация</Link> }
       {location.pathname === '/' && <button onClick={props.signIn} className="navbar__element navbar__element_type_button">Войти</button> }
       {location.pathname === '/movies' && <Link className="navbar__element navbar__element_hidden" to="">Аккаунт</Link> }
       {location.pathname === '/movies' && <button onClick={props.signIn} className="navbar__element navbar__button_avatar-icon navbar__element_hidden"></button> }
-      <Burger />
+      {location.pathname === '/saved-movies' && <Link className="navbar__element navbar__element_hidden" to="">Аккаунт</Link> }
+      {location.pathname === '/saved-movies' && <button onClick={props.signIn} className="navbar__element navbar__button_avatar-icon navbar__element_hidden"></button> }
+      {location.pathname === '/profile' && <Link className="navbar__element navbar__element_hidden" to="">Аккаунт</Link> }
+      {location.pathname === '/profile' && <button onClick={props.signIn} className="navbar__element navbar__button_avatar-icon navbar__element_hidden"></button> }
+      {location.pathname === '/movies' && <Burger /> }
+      {location.pathname === '/saved-movies' && <Burger /> }
+      {location.pathname === '/profile' && <Burger /> }
     </div>
   </>
   )

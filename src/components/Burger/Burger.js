@@ -15,6 +15,8 @@ function Burger (props) {
   return (
   <>
       {location.pathname === '/movies' && <button onClick={handleBurger} className="navbar__button-burger"></button> }
+      {location.pathname === '/saved-movies' && <button onClick={handleBurger} className="navbar__button-burger"></button> }
+      {location.pathname === '/profile' && <button onClick={handleBurger} className="navbar__button-burger"></button> }
       <div className={`
     burger 
     ${value ? "burger_open" : ""}

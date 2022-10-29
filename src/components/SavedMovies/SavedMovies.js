@@ -2,7 +2,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer.js";
 
-function Movies(props) {
+function SavedMovies(props) {
 
   return (
    <>
@@ -13,4 +13,4 @@ function Movies(props) {
   );
 }
 
-export default Movies;
+export default SavedMovies;
