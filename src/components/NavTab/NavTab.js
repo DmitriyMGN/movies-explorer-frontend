@@ -1,12 +1,12 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function NavTab(props) {
   const location = useLocation()
   return (
       <div className="navtab">
-        {location.pathname === '/' && <button className="navtab__button">О проекте</button> }
-        {location.pathname === '/' && <button className="navtab__button">Технологии</button> }
-        {location.pathname === '/' && <button className="navtab__button">Студент</button> }
+        {location.pathname === '/' && <a className="navtab__link" href="#project-about">О проекте</a> }
+        {location.pathname === '/' && <a className="navtab__link" href="#techs">Технологии</a> }
+        {location.pathname === '/' && <a className="navtab__link" href="#about-me">Студент</a> }
       </div>
   );
 }

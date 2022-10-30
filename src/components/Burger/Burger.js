@@ -2,15 +2,12 @@ import { useLocation, Link} from 'react-router-dom';
 import React from 'react';
 
 function Burger (props) {
-
   const [value, setValue] = React.useState(false);
 
-    // Обработчик изменения инпута обновляет стейт
   function handleBurger(e) {
     setValue(!value);
   }
   
-
   const location = useLocation()
   return (
   <>
@@ -31,11 +28,12 @@ function Burger (props) {
         </div>
       <div className="burger__links-bottom">
         {<Link className="navbar__element navbar__element_burger" to="">Аккаунт</Link>}
-        <button className="navbar__element navbar__button_avatar-icon"></button>
+        <button className="navbar__element navbar__avatar-icon"></button>
       </div>
       </div>
     </div>
   </>
+
   )
 }
 

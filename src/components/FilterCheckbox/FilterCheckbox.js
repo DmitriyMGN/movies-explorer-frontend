@@ -3,11 +3,9 @@ import React from "react";
 function FilterCheckbox() {
 const [value, setValue] = React.useState(true);
 
-
 function handleChange(e) {
   setValue(!value);
 }
-
 
 return (
   <div className="filter">

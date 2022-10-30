@@ -12,7 +12,7 @@ function MoviesCard(props) {
         <p className="movies__duration">27 минут</p>
       </div>
       <img className="movies__img" src={movie} alt="Фото фильма" ></img>
-      <button className="movies__button">Сохранить</button>
+      <button className="movies__button movies__button_active">Сохранить</button>
     </li>}
     {location.pathname === '/movies' && <li className="movies__item">
       <div className="movies__about">
@@ -28,7 +28,7 @@ function MoviesCard(props) {
         <p className="movies__duration">27 минут</p>
       </div>
       <img className="movies__img" src={movie} alt="Фото фильма" ></img>
-      <button className="movies__button">Сохранить</button>
+      <button className="movies__button movies__button_active">Сохранить</button>
     </li>}
     {location.pathname === '/movies' && <li className="movies__item">
       <div className="movies__about">
@@ -36,7 +36,7 @@ function MoviesCard(props) {
         <p className="movies__duration">27 минут</p>
       </div>
       <img className="movies__img" src={movie} alt="Фото фильма" ></img>
-      <button className="movies__button">Сохранить</button>
+      <button className="movies__button movies__button_active">Сохранить</button>
     </li>}
     {location.pathname === '/movies' && <li className="movies__item">
       <div className="movies__about">

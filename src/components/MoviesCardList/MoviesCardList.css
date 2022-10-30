@@ -17,7 +17,7 @@
 .movies__list {
   padding: 0;
   margin: 70px 0 60px;
-  padding-top: 80px;
+  padding-top: 85px;
   list-style: none;
   display: flex;
   justify-content: center;
@@ -48,13 +48,17 @@
   min-height: 36px;
   margin: 0;
   padding: 0;
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
   border: none;
   background-color: #E8E8E8;
+}
+
+.movies__button-still:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width:800px) {

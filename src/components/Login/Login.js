@@ -8,23 +8,19 @@ function Login (props) {
       <form className='form'>
           <div className='form__inputs'>
             <span className='form__span'>E-mail</span>
-            <input className='form__input'></input>
+            <input className='form__input' placeholder="Введите E-mail" required></input>
           </div>
           <div className='form__inputs'>
             <span className='form__span'>Пароль</span>
-            <input className='form__input' required></input>
+            <input className='form__input' placeholder="Введите пароль" required></input>
           </div>
         <button className='form__submit'>Войти</button>
         <div className='form__links'>
           <span className='form__span form__span_link'>Ещё не зарегистрированы?</span>
-          <Link className='form__link'>Регистрация</Link>
+          <Link className='form__link' to="/signup">Регистрация</Link>
         </div>
       </form>
-
     </div>
-
-
-
   )
 }
 

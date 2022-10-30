@@ -1,10 +1,8 @@
-
-
 function AboutProject(props) {
 
   return (
    <div className="project">
-      <h2 className="title">О проекте</h2>
+      <h2 className="title" id="project-about">О проекте</h2>
         <div className="project__info">
           <div className="project-about">
             <h3 className="project-about__title">Дипломный проект включал 5 этапов</h3>
