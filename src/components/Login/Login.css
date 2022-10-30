@@ -1,0 +1,127 @@
+.login {
+  max-width: 396px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width:500px) {
+  .login {
+    max-width: 260px;
+  }
+}
+
+.login__title { 
+  margin: 0 0 40px 0;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+@media screen and (max-width:500px) {
+  .login__title {
+    margin: 0 0 80px 0;
+    text-align: center;
+  }
+}
+
+.form__inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__span {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #A0A0A0;
+}
+
+.form__input {
+  margin: 10px 0 20px 0;
+  min-height: 46px;
+  border: none;
+  background: #F9F9F9;
+  border-radius: 8px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.form__input:invalid {
+  color: #EE3465;
+}
+
+.form__submit {
+  width: 396px;
+  min-height: 45px;
+  margin: 160px 0 16px 0;
+  padding: 0;
+  border: none;
+  background: #2BE080;
+  border-radius: 3px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+@media screen and (max-width:500px) {
+  .form__submit {
+    width: 260px;
+    margin: 245px 0 16px 0;
+  }
+}
+
+.form__links {
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__span_link {
+  font-size: 14px;
+  line-height: 17px;
+}
+
+@media screen and (max-width:500px) {
+  .form__span_link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.form__link {
+  margin: 0;
+  padding: 0 0 0 6px;
+  text-decoration: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #2BE080;
+  cursor: pointer;
+}
+
+@media screen and (max-width:500px) {
+  .form__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
