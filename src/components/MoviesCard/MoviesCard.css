@@ -1,0 +1,134 @@
+.movies__item {
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+
+@media screen and (max-width:920px) {
+  .movies__item {
+    width: 342px;
+  }
+}
+
+.movies__about {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width:920px) {
+  .movies__about {
+    width: 342px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .movies__about {
+    width: 300px;
+  }
+}
+
+.movies__title {
+  margin: 18px 0 18px 18px;
+  padding: 0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+@media screen and (max-width:550px) {
+  .movies__title {
+    margin: 14px 0 14px 14px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+.movies__duration {
+  margin: 18px 18px 18px 0;
+  padding: 0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #A0A0A0;
+}
+
+@media screen and (max-width:550px) {
+  .movies__duration {
+    margin: 14px 0 14px 14px;
+    font-size: 10px;
+    line-height: 18px;
+  }
+}
+
+.movies__img {
+  width: 360px;
+  height: 200px;
+}
+
+@media screen and (max-width:920px) {
+  .movies__img {
+    width: 342px;
+    height: 190px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .movies__img {
+    width: 300px;
+    height: 168px;
+  }
+}
+
+
+.movies__button {
+  min-height: 29px;
+  margin: 18px 0;
+  padding: 0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 11px;
+  border: none;
+  background-color: white;
+}
+
+.movies__button:hover {
+  opacity: 0.7;
+} 
+
+@media screen and (max-width:320px) {
+  .movies__button {
+    margin: 14px 0;
+  }
+}
+
+.movies__button_active {
+  min-width: 100px;
+  min-height: 29px;
+  background-color: #EE3465;
+  background-image: url('../../images/save_icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 30px;
+  color: transparent;
+}
+
+.movies__button_cross {
+  position: relative;
+  min-width: 100px;
+  background-image: url('../../images/movie-cross.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #F9F9F9;
+  border-radius: 30px;
+  color: transparent;
+}

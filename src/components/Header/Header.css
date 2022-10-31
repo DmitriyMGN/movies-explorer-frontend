@@ -1,0 +1,37 @@
+.header {
+  max-width: 1140px;
+  min-height: 74px;
+  margin: 0 70px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width:800px) {
+  .header {
+    max-width: 768px;
+    margin: 0 30px 20px;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .header {
+    max-width: 320px;
+    margin: 0 14px 15px;
+  }
+}
+
+.header_form {
+  max-width: 396px;
+  margin: 70px auto 20px;
+}
+
+@media screen and (max-width:500px) {
+  .header_form {
+    min-height: 38px;
+    max-width: 260px;
+    margin: 56px auto 50px;
+    display: flex;
+    justify-content: center;
+  }
+}
