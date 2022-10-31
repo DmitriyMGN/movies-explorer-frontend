@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function Register (props) {
 
   return (
-    <div className='login'>
+    <section className='login'>
       <h1 className='login__title'>Добро пожаловать!</h1>
       <form className='form'>
           <div className='form__inputs'>
@@ -19,13 +19,13 @@ function Register (props) {
             <input className='form__input' type="password" placeholder="Введите пароль" required></input>
             <span className='form__span form__span_error'>Что-то пошло не так...</span>
           </div>
-        <button className='form__submit form__submit_reg'>Зарегестрироваться</button>
+        <button className='form__submit form__submit_reg' type="button">Зарегестрироваться</button>
         <div className='form__links'>
           <span className='form__span form__span_link'>Уже зарегистрированы?</span>
           <Link className='form__link' to="signin">Войти</Link>
         </div>
       </form>
-    </div>
+    </section>
   )
 }
 

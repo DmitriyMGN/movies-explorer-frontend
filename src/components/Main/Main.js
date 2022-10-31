@@ -8,13 +8,13 @@ import Footer from "../Footer/Footer.js";
 function Main(props) {
 
   return (
-    <>
-   <Promo />
-   <AboutProject />
-   <Techs />
-   <AboutMe/>
-   <Footer />
-   </>
+   <main>
+    <Promo />
+    <AboutProject />
+    <Techs />
+    <AboutMe/>
+    <Footer />
+   </main>
   );
 }
 

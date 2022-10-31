@@ -1,6 +1,6 @@
 function Techs(props) {
   return (
-   <div className="techs">
+   <section className="techs">
       <h2 className="title title_techs" id="techs">Технологии</h2>
       <h3 className="techs__title">7 технологий</h3>
       <p className="techs__paragraph">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
@@ -13,7 +13,7 @@ function Techs(props) {
         <li className="techs__item">Express.js</li>
         <li className="techs__item">mongoDB</li>            
       </ul> 
-   </div>
+   </section>
   );
 }
 

@@ -3,12 +3,12 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 function MoviesCardList(props) {
 
   return (
-    <div className="movies">
+    <section className="movies">
       <ul className="movies__list">
           <MoviesCard />
       </ul>
-      <button className="movies__button-still">Еще</button>
-    </div>
+      <button className="movies__button-still" type="button">Еще</button>
+    </section>
   );
 }
 

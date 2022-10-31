@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function Profile (props) {
 
   return (
-  <div className="profile">
+  <section className="profile">
     <h1 className="profile__title">Привет, Дмитрий!</h1>
     <div className="profile__info">  
       <div className="profile__inputs">
@@ -19,7 +19,7 @@ function Profile (props) {
       <Link className="profile__link" to="/profile">Редактировать</Link>
       <Link className="profile__link profile__link_signout" to="/profile">Выйти из аккаунта</Link>
     </div>
-  </div>
+  </section>
   )
 }
 

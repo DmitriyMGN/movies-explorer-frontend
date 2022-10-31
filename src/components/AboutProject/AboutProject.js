@@ -1,7 +1,7 @@
 function AboutProject(props) {
 
   return (
-   <div className="project">
+   <section className="project">
       <h2 className="title" id="project-about">О проекте</h2>
         <div className="project__info">
           <div className="project-about">
@@ -21,7 +21,7 @@ function AboutProject(props) {
           <p className="project-graph__backend project-graph_text">Back-end</p>
           <p className="project-graph__frontend project-graph_text">Front-end</p>
         </div>
-    </div>
+    </section>
   );
 }
 
