@@ -107,13 +107,13 @@
 
 @media screen and (max-width:320px) {
   .movies__button {
-    min-height: 0;
-    margin: 23px 0;
+    margin: 14px 0;
   }
 }
 
 .movies__button_active {
   min-width: 100px;
+  min-height: 29px;
   background-color: #EE3465;
   background-image: url('../../images/save_icon.svg');
   background-repeat: no-repeat;
@@ -131,5 +131,4 @@
   background-color: #F9F9F9;
   border-radius: 30px;
   color: transparent;
-  z-index: 99999;
 }

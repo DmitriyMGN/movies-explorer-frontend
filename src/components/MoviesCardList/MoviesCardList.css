@@ -54,7 +54,8 @@
   font-size: 12px;
   line-height: 15px;
   border: none;
-  background-color: #E8E8E8;
+  background-color: #F9F9F9;
+  border-radius: 6px;
 }
 
 .movies__button-still:hover {
