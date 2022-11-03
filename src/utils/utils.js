@@ -1,3 +1,3 @@
-const baseUrl = 'http://localhost:4000'
+const baseUrl = 'https://api.diploma.dmitriymgn.nomoredomains.icu'
 
 export default baseUrl
