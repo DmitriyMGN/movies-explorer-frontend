@@ -8,7 +8,7 @@ class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  register(password, email) {
+  register(name, email, password) {
     return fetch(`${baseUrl}/signup`, {
         credentials: 'include',
         method: "POST",
@@ -16,8 +16,9 @@ class MainApi {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          password,
+          name,
           email,
+          password
         }),
       })
       .then(this._checkResponse)
@@ -25,7 +26,7 @@ class MainApi {
 
   authorize(password, email) {
     return fetch(`${baseUrl}/signin`, {
-        credentials: 'include',
+        // credentials: 'include',
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,6 +44,12 @@ class MainApi {
       credentials: 'include',
       method: 'GET',
     }).then((this._checkResponse));
+  }
+
+  getUserInfo() {
+    return fetch(`${this._url}/users/me`, {
+      credentials: 'include'
+    }).then(this._checkResponse);
   }
 }
 
