@@ -26,7 +26,7 @@ class MainApi {
 
   authorize(password, email) {
     return fetch(`${baseUrl}/signin`, {
-        // credentials: 'include',
+        credentials: 'include',
         method: "POST",
         headers: {
           "Content-Type": "application/json",

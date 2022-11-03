@@ -5,14 +5,27 @@ function Login (props) {
   return (
     <section className='login'>
       <h1 className='login__title'>Рады видеть!</h1>
-      <form className='form'>
+      <form className='form' onSubmit={props.onLogin}>
           <div className='form__inputs'>
             <span className='form__span'>E-mail</span>
-            <input className='form__input' placeholder="Введите E-mail" required></input>
+            <input 
+            value={props.email || ""}
+            onChange={props.handleChangeEmail}
+            className='form__input' 
+            placeholder="Введите E-mail" 
+            required
+            ></input>
           </div>
           <div className='form__inputs'>
             <span className='form__span'>Пароль</span>
-            <input className='form__input' placeholder="Введите пароль" required></input>
+            <input 
+            value={props.password || ""}
+            onChange={props.handleChangePassword}
+            className='form__input' 
+            placeholder="Введите пароль"
+            type="password" 
+            required
+            ></input>
           </div>
         <button className='form__submit' type='submit'>Войти</button>
         <div className='form__links'>

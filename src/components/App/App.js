@@ -105,9 +105,15 @@ return (
     <div className="page">
       <Header  />
       <Switch>
-        <Route path='/signin'><Login 
+        <Route path='/signin'>
+        <Login 
         onLogin={handleSubmitLogin}
-        /></Route>
+        password={password}
+        email={email}
+        handleChangeEmail={handleChangeEmail}
+        handleChangePassword={handleChangePassword}  
+        />
+        </Route>
         <Route path="/signup">
           <Register 
             onRegister={handleSubmitRegister}
