@@ -4,14 +4,18 @@ import Footer from "../Footer/Footer.js";
 import { useState, useEffect } from 'react';
 import MoviesApi from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader'
+import useWindowSize from '../../utils/useWindowSize'
 
 function Movies(props) {
+
+  const size = useWindowSize();
 
   const [checkboxValue, setCheckboxValue] = useState(false);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [queryMovies, setQueryMovies] =  useState([]);
   const [checkboxMovies, setCheckboxMovies] = useState([]);
+  const [pageMovies, setPageMovies] = useState([]);
   const [queryError, setQueryError] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
   const [searchError, setSearchError] = useState(false);
@@ -86,6 +90,24 @@ function ShowFilms(inputValue) {
     }
   }, [checkboxValue, queryMovies])
 
+  useEffect(() => {
+    let count;
+    if (size.width >= 1280) {
+     count = 12
+    } else if (size.width >= 768) {
+     count = 8
+    } else if (size.width >= 320) {
+     count = 5
+    }
+   if(checkboxMovies.length > count) {
+     setPageMovies(checkboxMovies.slice(0,count))
+   } else {
+     setPageMovies(checkboxMovies);
+   }
+  }, [size.width, checkboxMovies])
+
+
+
   return (
    <>
     <SearchForm 
@@ -100,7 +122,10 @@ function ShowFilms(inputValue) {
     />
      { loading && <Preloader /> }
     <MoviesCardList 
-    films={checkboxMovies}
+    films={pageMovies}
+    pageMovies = {pageMovies}
+    checkboxMovies = {checkboxMovies}
+    setPageMovies = {setPageMovies}
     />
     <Footer />
    </>
