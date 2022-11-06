@@ -3,6 +3,12 @@
  color: #EE3465;
 }
 
+.form__span-search_error {
+  padding: 20px 50px 0;
+  display: flex;
+  justify-content: center;
+}
+
 .form__submit_reg {
   margin: 70px 0 16px;
 }

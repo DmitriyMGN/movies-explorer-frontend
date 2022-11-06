@@ -12,7 +12,7 @@ class MoviesApi {
 
   getFilms() {
     return fetch(`${this._url}`, {
-      credentials: 'include'
+      // credentials: 'include'
     }).then(this._checkResponse);
   }
   

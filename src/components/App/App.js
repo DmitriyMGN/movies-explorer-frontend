@@ -44,7 +44,7 @@ function App() {
     mainApi
       .authorize(password, email)
       .then(() => {
-          history.go('/');
+          // history.go('/');
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
@@ -74,17 +74,17 @@ function App() {
     };
     return data;
   }
-  useEffect(() => {
-    mainApi
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-        setLoggedIn(true);
 
-        history.push("/");
-      })
-      .catch((err) => console.log(err));
-  }, [loggedIn, history])
+  // useEffect(() => {
+  //   mainApi
+  //     .getUserInfo()
+  //     .then((userData) => {
+  //       setCurrentUser(userData);
+  //       setLoggedIn(true);
+  //       history.push("/");
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [loggedIn, history])
 
   function handleUpdateUser(item) {
     mainApi
