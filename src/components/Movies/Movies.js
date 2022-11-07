@@ -123,7 +123,6 @@ function ShowFilms(inputValue) {
      { loading && <Preloader /> }
     <MoviesCardList 
     films={pageMovies}
-    pageMovies = {pageMovies}
     checkboxMovies = {checkboxMovies}
     setPageMovies = {setPageMovies}
     />

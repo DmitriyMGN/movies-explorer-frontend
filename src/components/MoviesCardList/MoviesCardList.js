@@ -31,11 +31,12 @@ function MoviesCardList(props) {
               <MoviesCard
                 film={film}
                 key={film.id}
+                onRemove={props.onRemove}
               />
             )
           })}
       </ul>
-      {props.checkboxMovies.length > props.pageMovies.length &&
+      {props.checkboxMovies.length > props.films.length &&
       <button 
       className="movies__button-still" 
       type="button" 

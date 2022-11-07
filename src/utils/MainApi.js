@@ -48,9 +48,69 @@ class MainApi {
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
-      credentials: 'include'
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
     }).then(this._checkResponse);
   }
+
+  getSavedFilms() {
+  return fetch(`${this._url}/movies`, {
+    credentials: 'include',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(this._checkResponse);
+}
+
+  saveFilm ({
+  country,
+  director,
+  duration,
+  year,
+  description,
+  image,
+  trailerLink,
+  thumbnail,
+  movieId,
+  nameRU,
+  nameEN,
+  }) {
+  return fetch(`${this._url}/movies`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },   
+    credentials: 'include',
+    body: JSON.stringify({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      thumbnail,
+      movieId,
+      nameRU,
+      nameEN,
+    })
+  })
+  .then(this._checkResponse);
+}
+
+  removeFilm(id) {
+  return fetch(`${this._url}/movies/${id}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+    },   
+    credentials: 'include',
+  })
+  .then(this._checkResponse);
+}
+
 }
 
 export default MainApi

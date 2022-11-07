@@ -8,7 +8,7 @@ function Navigation (props) {
   return (
   <>
     <div className="navbar">
-      <a href="/" className='navbar__logo'><img src={mestoLogo} alt="Картинка логотипа сайта" /></a>
+      <Link to="/" className='navbar__logo'><img src={mestoLogo} alt="Картинка логотипа сайта" /></Link>
       {location.pathname === '/movies' && <Link className="navbar__element navbar__element_hidden" to="/movies">Фильмы</Link> } 
       {location.pathname === '/movies' && <Link className="navbar__element navbar__element_hidden" to="/saved-movies">Сохраненные фильмы</Link> }
       {location.pathname === '/saved-movies' && <Link className="navbar__element navbar__element_hidden" to="/movies">Фильмы</Link> } 

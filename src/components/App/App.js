@@ -10,17 +10,19 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js"
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
-import MainApi from "../../utils/MainApi.js";
+import MainApi from "../../utils/MainApi";
 
 
 function App() {
+
+  const history = useHistory();
+
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const history = useHistory();
+  const [savedMovies, setSavedMovies ] = useState([]);
 
   const mainApi = new MainApi();
 
@@ -44,7 +46,8 @@ function App() {
     mainApi
       .authorize(password, email)
       .then(() => {
-          // history.go('/');
+          history.push('/movies');
+          console.log("логин")
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
@@ -52,19 +55,60 @@ function App() {
 
   function handleSubmitRegister(e) {
     e.preventDefault();
-    // setEmail("");
-    // setPassword("");
-    // setLogin("");
     mainApi
       .register(login, email, password)
       .then(() => {
         setLoggedIn(true);
         console.log("!!")
       })
-      .catch(() => {
+      .catch((err) => {
         setLoggedIn(false);
+        console.log(err)
       });
   }
+
+  function handleSaveFilm(data) {
+    mainApi
+    .saveFilm()
+      .then((res) => {
+        setSavedMovies((previousValue) => {
+          return previousValue.concat(res.data)
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  
+  function handleRemoveSavedFilm(data) {
+    mainApi
+    .removeFilm()
+      .then((res) => {
+        setSavedMovies((previousValue) => {
+          return previousValue.filter((film) => film._id !== res.data._id);
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  
+  function ShowSavedFilms() {
+    mainApi
+    .getSavedFilms()
+      .then((res) => {
+        setSavedMovies(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    ShowSavedFilms()
+  },[loggedIn])
+
+
 
   function updateData(item) {
     const data = {
@@ -126,7 +170,13 @@ return (
           />
           </Route>
         <Route path="/movies"><Movies /></Route>
-        <Route path="/saved-movies"><SavedMovies /></Route>
+        <Route path="/saved-movies">
+          <SavedMovies 
+          films={savedMovies}
+          onRemove={handleRemoveSavedFilm}
+          onSave={handleSaveFilm}
+          />
+          </Route>
         <Route path="/profile">
           <Profile 
           onUpdateUser={handleUpdateUser}
