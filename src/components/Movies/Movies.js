@@ -21,6 +21,7 @@ function Movies(props) {
   const [searchError, setSearchError] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
+
 function handleCheckboxValueChange() {
   setCheckboxValue(!checkboxValue);
 }
@@ -125,6 +126,9 @@ function ShowFilms(inputValue) {
     films={pageMovies}
     checkboxMovies = {checkboxMovies}
     setPageMovies = {setPageMovies}
+    savedMovies = {props.savedMovies}
+    onSave= {props.onSave}
+    onRemove= {props.onRemove}
     />
     <Footer />
    </>

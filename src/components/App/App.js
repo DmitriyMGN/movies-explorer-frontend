@@ -69,7 +69,7 @@ function App() {
 
   function handleSaveFilm(data) {
     mainApi
-    .saveFilm()
+    .saveFilm(data)
       .then((res) => {
         setSavedMovies((previousValue) => {
           return previousValue.concat(res.data)
@@ -82,7 +82,7 @@ function App() {
   
   function handleRemoveSavedFilm(data) {
     mainApi
-    .removeFilm()
+    .removeFilm(data)
       .then((res) => {
         setSavedMovies((previousValue) => {
           return previousValue.filter((film) => film._id !== res.data._id);
@@ -93,23 +93,18 @@ function App() {
       })
   }
   
-  function ShowSavedFilms() {
+  useEffect(() => {
     mainApi
     .getSavedFilms()
       .then((res) => {
-        setSavedMovies(res.data)
+        setSavedMovies(res)
       })
       .catch((err) => {
         console.log(err)
       })
-  }
-
-  useEffect(() => {
-    ShowSavedFilms()
   },[loggedIn])
 
-
-
+  
   function updateData(item) {
     const data = {
       name: item.name,
@@ -169,12 +164,18 @@ return (
             handleChangePassword={handleChangePassword}         
           />
           </Route>
-        <Route path="/movies"><Movies /></Route>
+        <Route path="/movies">
+          <Movies
+            savedMovies = {savedMovies}
+            onSave= {handleSaveFilm}
+            onRemove= {handleRemoveSavedFilm}
+          />
+        </Route>
         <Route path="/saved-movies">
           <SavedMovies 
-          films={savedMovies}
-          onRemove={handleRemoveSavedFilm}
-          onSave={handleSaveFilm}
+          films= {savedMovies}
+          onRemove= {handleRemoveSavedFilm}
+          setSavedMovies = {setSavedMovies}
           />
           </Route>
         <Route path="/profile">

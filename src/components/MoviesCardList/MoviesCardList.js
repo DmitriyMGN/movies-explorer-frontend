@@ -7,7 +7,6 @@ function MoviesCardList(props) {
 
   const size = useWindowSize();
 
-  
   function loadMovies() {
     let count;
     if (size.width >= 1280) {
@@ -17,26 +16,29 @@ function MoviesCardList(props) {
     } else if (size.width >= 320) {
      count = 1
     }
+
     props.setPageMovies((previousValue) => {
       return previousValue.concat(props.checkboxMovies.slice(previousValue.length, previousValue.length + count));
     })
   }
 
-
   return (
     <section className="movies">
       <ul className="movies__list">
-      {props.films.map((film) => {
+       {props.films.map((film) => {
             return (
               <MoviesCard
                 film={film}
-                key={film.id}
+                key={props.savedMoviesPage ? film._id : film.id}
+                onSave= {props.onSave}
                 onRemove={props.onRemove}
+                savedMoviesPage = {props.savedMoviesPage}
+                savedMovies = {props.savedMovies}
               />
             )
           })}
       </ul>
-      {props.checkboxMovies.length > props.films.length &&
+      {!props.savedMoviesPage && props.checkboxMovies.length > props.films.length &&
       <button 
       className="movies__button-still" 
       type="button" 
@@ -45,6 +47,7 @@ function MoviesCardList(props) {
       Еще
       </button>
       }
+     
     </section>
   );
 }

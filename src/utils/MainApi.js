@@ -47,7 +47,7 @@ class MainApi {
   }
 
   getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${baseUrl}/users/me`, {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ class MainApi {
   }
 
   getSavedFilms() {
-  return fetch(`${this._url}/movies`, {
+  return fetch(`${baseUrl}/movies`, {
     credentials: 'include',
     headers: {
       "Content-Type": "application/json",
@@ -77,7 +77,7 @@ class MainApi {
   nameRU,
   nameEN,
   }) {
-  return fetch(`${this._url}/movies`, {
+  return fetch(`${baseUrl}/movies`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -101,7 +101,7 @@ class MainApi {
 }
 
   removeFilm(id) {
-  return fetch(`${this._url}/movies/${id}`, {
+  return fetch(`${baseUrl}/movies/${id}`, {
     method: 'DELETE',
     headers: {
       "Content-Type": "application/json",

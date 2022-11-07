@@ -15,6 +15,7 @@ function SavedMovies(props) {
   const [searchActive, setSearchActive] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const savedMoviesPage = true;
 
 function handleCheckboxValueChange() {
   setCheckboxValue(!checkboxValue);
@@ -23,8 +24,6 @@ function handleCheckboxValueChange() {
 function handleInputValueChange(e) {
   setInputValue(e.target.value);
 }
-
-console.log(props.films)
 
   return (
    <>
@@ -37,11 +36,12 @@ console.log(props.films)
     searchActive = {searchActive}
     searchError = {searchError}
     />
-    {props.films.length !== 0 &&
+    {props.films.length !== 0  &&
     <MoviesCardList 
-        films={props.films}
+        films = {props.films}
         onRemove = {props.onRemove}
-        setPageMovies = {[]}
+        setPageMovies = {props.setSavedMovies}
+        savedMoviesPage = {savedMoviesPage}
     /> }
     <Footer />
    </>
