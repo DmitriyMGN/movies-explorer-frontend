@@ -1,7 +1,5 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import useWindowSize from '../../utils/useWindowSize'
-import { useState } from 'react';
-
 
 function MoviesCardList(props) {
 
@@ -17,9 +15,7 @@ function MoviesCardList(props) {
      count = 1
     }
 
-    props.setPageMovies((previousValue) => {
-      return previousValue.concat(props.checkboxMovies.slice(previousValue.length, previousValue.length + count));
-    })
+    props.setPageMovies(props.pageMovies.concat(props.checkboxMovies.slice(props.pageMovies.length, props.pageMovies.length + count)));
   }
 
   return (
