@@ -1,29 +1,26 @@
 import { useState, useEffect } from 'react';
 
 function MoviesCard(props) {
-  const [savedMovies, setSavedMovies] = useState({});
+  const [savedMovie, setSavedMovie] = useState(null);
  
   useEffect(() => {
     if(!props.savedMoviesPage) {
-        setSavedMovies(props.savedMovies.find(movie => movie.movieId === props.film.id))
+        setSavedMovie(props.savedMovies.find(movie => movie.movieId === props.film.id ))
       }
-  },[props.savedMoviesPage,props.savedMovies,props.film.id])
-
- 
+  },[props.film.id, props.savedMovies, props.savedMoviesPage])
 
   function toggleButton(evt) {
     evt.preventDefault();
-    if(savedMovies) {
-      props.onRemove(savedMovies._id)
+    if(savedMovie) {
+      props.onRemove(savedMovie._id)
     } else {
-      console.log(props.film.id)
       props.onSave({
         country: props.film.country,
         director: props.film.director ,
         duration: props.film.duration,
         year: props.film.year,
         description: props.film.description,
-        image: 'https://api.nomoreparties.co/' + props.film.url,
+        image: 'https://api.nomoreparties.co/' + props.film.image.url,
         trailerLink: props.film.trailerLink,
         thumbnail: 'https://api.nomoreparties.co/' + props.film.image.formats.thumbnail.url,
         movieId: props.film.id,
@@ -46,15 +43,15 @@ function MoviesCard(props) {
           <p className="movies__duration">{props.film.duration} м.</p>
         </div>
         <img className="movies__img" 
-        src={props.savedMoviesPage ? props.film.image.url : 'https://api.nomoreparties.co/' + props.film.image.url} 
+        src={props.savedMoviesPage ? props.film.image : 'https://api.nomoreparties.co/' + props.film.image.url} 
         alt={props.film.nameRU}>
         </img>
       </a>
       { !props.savedMoviesPage
          ?
-        <button className={`movies__button ${savedMovies && 'movies__button_active'}`} onClick={toggleButton} type="button">Сохранить</button>
+        <button className={`movies__button ${savedMovie && 'movies__button_active'}`} onClick={toggleButton} type="button">Сохранить</button>
         :
-        <button className={`movies__button ${savedMovies && 'movies__button_active'}`} onClick={removeFilm} type="button">Сохранить</button>
+        <button className="movies__button movies__button_cross" onClick={removeFilm} type="button"></button>
       }
     </li>
   );

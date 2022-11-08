@@ -47,6 +47,7 @@ function App() {
       .authorize(password, email)
       .then(() => {
           history.push('/movies');
+          loadSavedMovies()
           console.log("логин")
           setLoggedIn(true)
       })
@@ -70,30 +71,32 @@ function App() {
   function handleSaveFilm(data) {
     mainApi
     .saveFilm(data)
-      .then((res) => {
+      .then(() => {
         setSavedMovies((previousValue) => {
-          return previousValue.concat(res.data)
+          return previousValue.concat(data)
         })
       })
       .catch((err) => {
         console.log(err)
       })
+    loadSavedMovies() 
   }
   
-  function handleRemoveSavedFilm(data) {
+  function handleRemoveSavedFilm(id) {
     mainApi
-    .removeFilm(data)
-      .then((res) => {
+    .removeFilm(id)
+      .then(() => {
         setSavedMovies((previousValue) => {
-          return previousValue.filter((film) => film._id !== res.data._id);
+          return previousValue.filter((film) => film._id !== id);
         })
       })
       .catch((err) => {
         console.log(err)
       })
+      loadSavedMovies() 
   }
-  
-  useEffect(() => {
+
+  function loadSavedMovies() {
     mainApi
     .getSavedFilms()
       .then((res) => {
@@ -102,7 +105,8 @@ function App() {
       .catch((err) => {
         console.log(err)
       })
-  },[loggedIn])
+  }
+
 
   
   function updateData(item) {
@@ -176,6 +180,7 @@ return (
           films= {savedMovies}
           onRemove= {handleRemoveSavedFilm}
           setSavedMovies = {setSavedMovies}
+          loadMovies = {loadSavedMovies}
           />
           </Route>
         <Route path="/profile">
