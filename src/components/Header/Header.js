@@ -5,7 +5,11 @@ function Header (props) {
   const location = useLocation();
   return (
     <>
-  {location.pathname === '/' &&  <header className="header"><Navigation /></header> } 
+  {location.pathname === '/' &&  <header className="header">
+    <Navigation 
+    loggedIn={props.loggedIn}  
+    />
+    </header> } 
   {location.pathname === '/movies' &&  <header className="header"><Navigation /></header> } 
   {location.pathname === '/saved-movies' &&  <header className="header"><Navigation /></header> } 
   {location.pathname === '/profile' &&  <header className="header"><Navigation /></header> } 

@@ -20,17 +20,13 @@ function Movies(props) {
   const [searchActive, setSearchActive] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  let count;
 
+const handleCheckboxValueChange = () => setCheckboxValue(!checkboxValue);
 
-function handleCheckboxValueChange() {
-  setCheckboxValue(!checkboxValue);
-}
+const handleInputValueChange = (e) => setInputValue(e.target.value);
 
-function handleInputValueChange(e) {
-  setInputValue(e.target.value);
-}
-
-function handleShowFilms(e) {
+const handleShowFilms = (e) => {
   e.preventDefault();
   if (inputValue) {
     setSearchActive(false)
@@ -40,7 +36,7 @@ function handleShowFilms(e) {
   }
 }
 
-function ShowFilms(inputValue) {
+const ShowFilms = (inputValue)  => {
   setLoading(true);
   if (movies.length === 0) {
     MoviesApi
@@ -49,13 +45,12 @@ function ShowFilms(inputValue) {
         setMovies(res)
         localStorage.setItem('movies', JSON.stringify(res));
         const queryMoviesSearchArray = res.filter((movie) => {
-          return movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
+          return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
         })
         setQueryMovies(queryMoviesSearchArray)
         localStorage.setItem('queryMovies', JSON.stringify(queryMoviesSearchArray));
         console.log(queryMovies)
         checkArraySearch(queryMoviesSearchArray)
-
       })
       .catch((err) => {
         setQueryError(true)
@@ -64,35 +59,21 @@ function ShowFilms(inputValue) {
       .finally(() => setLoading(false))
     } else {
       const queryMoviesSearchArray = movies.filter((movie) => {
-        return movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
+        return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
       })
-
     setQueryMovies(queryMoviesSearchArray)
     localStorage.setItem('queryMovies', JSON.stringify(queryMoviesSearchArray));
     setLoading(false)
     checkArraySearch(queryMoviesSearchArray)
   }
-
 }
 
-  function checkArraySearch(arr) {
-    if(arr.length === 0) {
-      setSearchError(true)
-    } else {
-      setSearchError(false)
-    }
-  }
+  const checkArraySearch = (arr) => arr.length === 0 ? setSearchError(true) : setSearchError(false)
+
+  useEffect(() => checkboxValue ? setCheckboxMovies(queryMovies.filter((movie) => movie.duration <= 40))
+  : setCheckboxMovies(queryMovies), [checkboxValue, queryMovies])
 
   useEffect(() => {
-    if(checkboxValue) {
-      setCheckboxMovies(queryMovies.filter((movie) => movie.duration <= 40))
-    } else {
-      setCheckboxMovies(queryMovies);
-    }
-  }, [checkboxValue, queryMovies])
-
-  useEffect(() => {
-    let count;
     if (size.width >= 1280) {
      count = 12
     } else if (size.width >= 768) {
@@ -100,14 +81,8 @@ function ShowFilms(inputValue) {
     } else if (size.width >= 320) {
      count = 5
     }
-   if(checkboxMovies.length > count) {
-     setPageMovies(checkboxMovies.slice(0,count))
-   } else {
-     setPageMovies(checkboxMovies);
-   }
+   checkboxMovies.length > count ? setPageMovies(checkboxMovies.slice(0,count)) : setPageMovies(checkboxMovies);
   }, [size.width, checkboxMovies])
-
-
 
   return (
    <>
@@ -125,6 +100,7 @@ function ShowFilms(inputValue) {
     <MoviesCardList 
     films={pageMovies}
     checkboxMovies = {checkboxMovies}
+    pageMovies = {pageMovies}
     setPageMovies = {setPageMovies}
     savedMovies = {props.savedMovies}
     onSave= {props.onSave}

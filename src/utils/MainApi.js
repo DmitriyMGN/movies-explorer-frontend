@@ -55,6 +55,20 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
+  setUserInfo(item) {
+    return fetch(`${baseUrl}/users/me`, {
+      credentials: 'include',
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: item.name,
+        email: item.email,
+      }),
+    }).then(this._checkResponse);
+  }
+
   getSavedFilms() {
   return fetch(`${baseUrl}/movies`, {
     credentials: 'include',
@@ -64,19 +78,7 @@ class MainApi {
   }).then(this._checkResponse);
 }
 
-  saveFilm ({
-  country,
-  director,
-  duration,
-  year,
-  description,
-  image,
-  trailerLink,
-  thumbnail,
-  movieId,
-  nameRU,
-  nameEN,
-  }) {
+  saveFilm (data) {
   return fetch(`${baseUrl}/movies`, {
     method: 'POST',
     headers: {
@@ -84,17 +86,17 @@ class MainApi {
     },   
     credentials: 'include',
     body: JSON.stringify({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      thumbnail,
-      movieId,
-      nameRU,
-      nameEN,
+      country: data.country,
+      director: data.director ,
+      duration: data.duration,
+      year: data.year,
+      description: data.description,
+      image: 'https://api.nomoreparties.co/' + data.image.url,
+      trailerLink: data.trailerLink,
+      thumbnail: 'https://api.nomoreparties.co/' + data.image.formats.thumbnail.url,
+      movieId: data.id,
+      nameRU: data.nameRU,
+      nameEN: data.nameEN,
     })
   })
   .then(this._checkResponse);

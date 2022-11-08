@@ -27,7 +27,7 @@ function Burger (props) {
           {<Link className="burger__link" to="/saved-movies">Сохраненные фильмы</Link>}
         </div>
       <div className="burger__links-bottom">
-        {<Link className="navbar__element navbar__element_burger" to="">Аккаунт</Link>}
+        {<Link className="navbar__element navbar__element_burger" to="/profile">Аккаунт</Link>}
         <button className="navbar__element navbar__avatar-icon"></button>
       </div>
       </div>

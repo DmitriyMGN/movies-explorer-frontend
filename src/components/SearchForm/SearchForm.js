@@ -26,9 +26,7 @@ function SearchForm(props) {
   {props.queryError  ? <span className='form__span form__span_error form__span-search_error '>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</span> : ""}
   {props.searchActive ? <span className='form__span form__span_error form__span-search_error '>Нужно ввести ключевое слово</span> : ""}
   {props.searchError && !props.searchActive ? <span className='form__span form__span_error form__span-search_error '>Ничего не найдено</span> : ""}
-
    </>
-
   );
 }
 

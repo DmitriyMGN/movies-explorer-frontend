@@ -17,8 +17,12 @@ function Navigation (props) {
       {location.pathname === '/profile' && <Link className="navbar__element navbar__element_hidden" to="/saved-movies">Сохраненные фильмы</Link> }
     </div> 
     <div className="navbar">
-      {location.pathname === '/' && <Link className="navbar__element" to="/signup">Регистрация</Link> }
-      {location.pathname === '/' && <Link className="navbar__element navbar__element_type_button-link" to="/signin">Войти</Link> }
+      {location.pathname === '/' && !props.loggedIn && <Link className="navbar__element" to="/signup">Регистрация</Link> }
+      {location.pathname === '/' && !props.loggedIn && <Link className="navbar__element navbar__element_type_button-link" to="/signin">Войти</Link> }
+      {location.pathname === '/' && props.loggedIn && <Link className="navbar__element" to="/movies">Фильмы</Link> } 
+      {location.pathname === '/' && props.loggedIn && <Link className="navbar__element" to="/saved-movies">Сохраненные фильмы</Link> }
+      {location.pathname === '/' && props.loggedIn && <Link className="navbar__element" to="/profile">Аккаунт</Link> }
+
       {location.pathname === '/movies' && <Link className="navbar__element navbar__element_hidden" to="/profile">Аккаунт</Link> }
       {location.pathname === '/movies' && <Link  className="navbar__element navbar__avatar-icon navbar__element_hidden" to="/profile"></Link> }
       {location.pathname === '/saved-movies' && <Link className="navbar__element navbar__element_hidden" to="/profile">Аккаунт</Link> }

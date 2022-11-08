@@ -47,8 +47,7 @@ function App() {
       .authorize(password, email)
       .then(() => {
           history.push('/movies');
-          loadSavedMovies()
-          console.log("логин")
+          console.log("вход")
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
@@ -60,6 +59,7 @@ function App() {
       .register(login, email, password)
       .then(() => {
         setLoggedIn(true);
+        history.push('/movies');
         console.log("!!")
       })
       .catch((err) => {
@@ -72,31 +72,27 @@ function App() {
     mainApi
     .saveFilm(data)
       .then(() => {
-        setSavedMovies((previousValue) => {
-          return previousValue.concat(data)
+        uploadMovies()
+        setSavedMovies(savedMovies.concat(data))
         })
-      })
       .catch((err) => {
         console.log(err)
       })
-    loadSavedMovies() 
+    
   }
   
   function handleRemoveSavedFilm(id) {
     mainApi
     .removeFilm(id)
       .then(() => {
-        setSavedMovies((previousValue) => {
-          return previousValue.filter((film) => film._id !== id);
-        })
+        setSavedMovies(savedMovies.filter((film) => film._id !== id));
       })
       .catch((err) => {
         console.log(err)
       })
-      loadSavedMovies() 
   }
 
-  function loadSavedMovies() {
+  function uploadMovies() {
     mainApi
     .getSavedFilms()
       .then((res) => {
@@ -107,27 +103,28 @@ function App() {
       })
   }
 
-
-  
   function updateData(item) {
     const data = {
       name: item.name,
-      about: item.about,
-      avatar: item.avatar,
+      email: item.email,
     };
     return data;
   }
 
-  // useEffect(() => {
-  //   mainApi
-  //     .getUserInfo()
-  //     .then((userData) => {
-  //       setCurrentUser(userData);
-  //       setLoggedIn(true);
-  //       history.push("/");
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [loggedIn, history])
+  useEffect(() => {
+    uploadMovies()
+  }, [loggedIn])
+
+  useEffect(() => {
+    mainApi
+      .getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData);
+        setLoggedIn(true);
+        history.push("/");
+      })
+      .catch((err) => console.log(err));
+  }, [loggedIn, history])
 
   function handleUpdateUser(item) {
     mainApi
@@ -140,23 +137,24 @@ function App() {
       });
   }
 
-
-
-
 return (
   <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
-      <Header  />
+      <Header 
+      loggedIn={loggedIn}  
+       />
       <Switch>
+
         <Route path='/signin'>
-        <Login 
-        onLogin={handleSubmitLogin}
-        password={password}
-        email={email}
-        handleChangeEmail={handleChangeEmail}
-        handleChangePassword={handleChangePassword}  
-        />
+          <Login 
+          onLogin={handleSubmitLogin}
+          password={password}
+          email={email}
+          handleChangeEmail={handleChangeEmail}
+          handleChangePassword={handleChangePassword}  
+          />
         </Route>
+
         <Route path="/signup">
           <Register 
             onRegister={handleSubmitRegister}
@@ -168,33 +166,43 @@ return (
             handleChangePassword={handleChangePassword}         
           />
           </Route>
-        <Route path="/movies">
-          <Movies
-            savedMovies = {savedMovies}
-            onSave= {handleSaveFilm}
-            onRemove= {handleRemoveSavedFilm}
-          />
-        </Route>
-        <Route path="/saved-movies">
-          <SavedMovies 
-          films= {savedMovies}
+
+
+        <ProtectedRoute 
+          path="/movies"
+          loggedIn={loggedIn}  
+          component={Movies} 
+          savedMovies = {savedMovies}
+          onSave= {handleSaveFilm}
           onRemove= {handleRemoveSavedFilm}
-          setSavedMovies = {setSavedMovies}
-          loadMovies = {loadSavedMovies}
-          />
-          </Route>
-        <Route path="/profile">
-          <Profile 
-          onUpdateUser={handleUpdateUser}
-          />
-          </Route>
+        /> 
+      
+        <ProtectedRoute 
+            path="/saved-movies"
+            loggedIn={loggedIn}  
+            component={SavedMovies} 
+            films= {savedMovies}
+            onRemove= {handleRemoveSavedFilm}
+            setSavedMovies = {setSavedMovies}
+
+        /> 
+
+        <ProtectedRoute 
+            path="/profile"
+            loggedIn={loggedIn}  
+            component={Profile} 
+            email={email}
+            login={login}
+            handleChangeLogin={handleChangeLogin}
+            handleChangeEmail={handleChangeEmail}
+            onUpdateUser={handleUpdateUser}
+        /> 
+
         <Route exact path="/"><Main /></Route>
         <Route path="*"><Error /></Route>
-        {/* <ProtectedRoute path="/saved-movies"></ProtectedRoute>
-        <ProtectedRoute path="/movies"></ProtectedRoute>
-        <ProtectedRoute path="/profile"></ProtectedRoute> */}
-      </Switch>
 
+   
+   </Switch>
 
     </div>
   </CurrentUserContext.Provider>
