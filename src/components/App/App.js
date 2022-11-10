@@ -9,7 +9,7 @@ import Error from "../Error/Error.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js"
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import { useState, useEffect } from "react";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import MainApi from "../../utils/MainApi";
 
 
@@ -19,27 +19,12 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [savedMovies, setSavedMovies ] = useState([]);
 
   const mainApi = new MainApi();
 
-  function handleChangeLogin(e) {
-    setLogin(e.target.value);
-  }
+  function handleSubmitLogin(password, email) {
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
-
-  function handleSubmitLogin(e) {
-    e.preventDefault();
     if (!email || !password) {
       return;
     }
@@ -47,26 +32,24 @@ function App() {
       .authorize(password, email)
       .then(() => {
           history.push('/movies');
-          console.log("вход")
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
   }
 
-  function handleSubmitRegister(e) {
-    e.preventDefault();
+  function handleSubmitRegister(name, email, password) {
     mainApi
-      .register(login, email, password)
+      .register(name, email, password)
       .then(() => {
         setLoggedIn(true);
         history.push('/movies');
-        console.log("!!")
       })
       .catch((err) => {
         setLoggedIn(false);
         console.log(err)
       });
   }
+
 
   function handleSaveFilm(data) {
     mainApi
@@ -78,7 +61,16 @@ function App() {
       .catch((err) => {
         console.log(err)
       })
-    
+  }
+
+  function signOut(e) {
+    e.preventDefault()
+    mainApi
+    .signOut()
+    .then(() => {
+        setLoggedIn(false)
+    })
+    .catch((err) => console.log(err));
   }
   
   function handleRemoveSavedFilm(id) {
@@ -121,7 +113,7 @@ function App() {
       .then((userData) => {
         setCurrentUser(userData);
         setLoggedIn(true);
-        history.push("/");
+        history.push("/movies");
       })
       .catch((err) => console.log(err));
   }, [loggedIn, history])
@@ -147,26 +139,15 @@ return (
 
         <Route path='/signin'>
           <Login 
-          onLogin={handleSubmitLogin}
-          password={password}
-          email={email}
-          handleChangeEmail={handleChangeEmail}
-          handleChangePassword={handleChangePassword}  
+          onLogin={handleSubmitLogin} 
           />
         </Route>
 
         <Route path="/signup">
           <Register 
-            onRegister={handleSubmitRegister}
-            login={login}
-            email={email}
-            password={password}
-            handleChangeLogin={handleChangeLogin}
-            handleChangeEmail={handleChangeEmail}
-            handleChangePassword={handleChangePassword}         
+            onRegister={handleSubmitRegister}        
           />
           </Route>
-
 
         <ProtectedRoute 
           path="/movies"
@@ -184,18 +165,14 @@ return (
             films= {savedMovies}
             onRemove= {handleRemoveSavedFilm}
             setSavedMovies = {setSavedMovies}
-
         /> 
 
         <ProtectedRoute 
             path="/profile"
             loggedIn={loggedIn}  
             component={Profile} 
-            email={email}
-            login={login}
-            handleChangeLogin={handleChangeLogin}
-            handleChangeEmail={handleChangeEmail}
             onUpdateUser={handleUpdateUser}
+            signOut={signOut}
         /> 
 
         <Route exact path="/"><Main /></Route>

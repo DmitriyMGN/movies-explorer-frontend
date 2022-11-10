@@ -1,7 +1,7 @@
 import { useLocation, Link} from 'react-router-dom';
 import React from 'react';
 
-function Burger (props) {
+function Burger () {
   const [value, setValue] = React.useState(false);
 
   function handleBurger(e) {

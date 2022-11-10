@@ -42,6 +42,9 @@ class MainApi {
   signOut() {
     return fetch(`${baseUrl}/signout`, {
       credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
       method: 'GET',
     }).then((this._checkResponse));
   }

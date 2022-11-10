@@ -1,39 +1,63 @@
 import { Link } from 'react-router-dom';
+import  useFormWithValidation   from '../ValidationForm/ValidationForm'
 
 function Register (props) {
+
+const { values, handleChange, errors, isValid } = useFormWithValidation();
+
+const handleInputValue = (e) => {
+  handleChange(e);
+}
+
+const handleSubmitForm = (e) => {
+  e.preventDefault()
+  props.onRegister(values.name, values.email, values.password)
+}
 
   return (
     <section className='login'>
       <h1 className='login__title'>Добро пожаловать!</h1>
-      <form className='form' onSubmit={props.onRegister}>
+      <form className='form' onSubmit={handleSubmitForm}>
           <div className='form__inputs'>
             <span className='form__span'>Имя</span>
-            <input className='form__input' 
-            placeholder="Введите имя" 
-            value={props.login || ""}
-            onChange={props.handleChangeLogin}
+            <input 
+            className='form__input' 
+            placeholder="Введите имя"
+            name="name"
+            value={values.name || ""}
+            onChange={handleInputValue}
+            pattern="^[A-Za-zА-Яа-я-\s]+$"
+            minLength="2"
+            maxLength="30"
             required></input>
+            <span className='form__span form__span_error'>{errors.name}</span>
           </div>
           <div className='form__inputs'>
             <span className='form__span'>E-mail</span>
-            <input className='form__input' 
-            placeholder="Введите E-mail" 
-            value={props.email || ""}
-            onChange={props.handleChangeEmail}
+            <input 
+            className='form__input' 
+            placeholder="Введите E-mail"
+            name="email" 
+            value={values.email || ""}
+            onChange={handleInputValue}
+            type="email"
+            pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
             required></input>
+             <span className='form__span form__span_error'>{errors.email}</span>
           </div>
           <div className='form__inputs'>
             <span className='form__span'>Пароль</span>
             <input className='form__input' 
             type="password" 
             placeholder="Введите пароль" 
-            value={props.password || ""}
-            onChange={props.handleChangePassword}
+            name="password" 
+            value={values.password || ""}
+            onChange={handleInputValue}
             required></input>
-            <span className='form__span form__span_error'>Что-то пошло не так...</span>
+            <span className='form__span form__span_error'>{errors.password}</span>
           </div>
-        <button className='form__submit form__submit_reg' type="submit">Зарегестрироваться</button>
-        <div className='form__links'>
+        <button className={`form__submit form__submit_reg ${!isValid && 'form__submit_error'}`}  type="submit">Зарегестрироваться</button>
+        <div className='form__links'> 
           <span className='form__span form__span_link'>Уже зарегистрированы?</span>
           <Link className='form__link' to="signin">Войти</Link>
         </div>

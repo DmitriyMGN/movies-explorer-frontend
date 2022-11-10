@@ -1,7 +1,7 @@
 import myPhoto from '../../images/my_image.jpg';
 import Portfolio from '../Portfolio/Portfolio';
 
-function AboutMe(props) {
+function AboutMe() {
   return (
   <section>
    <h2 className="title title_about-me" id="about-me">Студент</h2>

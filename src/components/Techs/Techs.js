@@ -1,4 +1,4 @@
-function Techs(props) {
+function Techs() {
   return (
    <section className="techs">
       <h2 className="title title_techs" id="techs">Технологии</h2>

@@ -1,49 +1,73 @@
-import { Link } from 'react-router-dom';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import  useFormWithValidation   from '../ValidationForm/ValidationForm'
 
 
 function Profile (props) {
 const currentUser = useContext(CurrentUserContext)
+const [popupOpen, setPopupOpen] = useState(false);
 
+const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-function handleSubmit(e) {
-  e.preventDefault();
+const handleInputValue = (e) => {
+  handleChange(e);
+}
 
-  props.onUpdateUser({
-    name: props.login,
-    email: props.email
-  });
+const handleSubmitForm = (e) => {
+  e.preventDefault()
+  props.onUpdateUser({name:values.name, email:values.email})
+  setPopupOpen(true)
+}
 
-} 
+const handlePopup = (e) => {
+  e.preventDefault()
+  setPopupOpen(false)
+}
 
   return (
   <section className="profile">
     <h1 className="profile__title">Привет, {currentUser?.name}!</h1>
-    <div className="profile__info">  
+    <form className="profile__info" onSubmit={handleSubmitForm}>  
       <div className="profile__inputs">
         <span className="profile__span profile__span_name">Имя</span>
         <input 
         className="profile__input" 
         placeholder={currentUser?.name}
-        value={props.login || ""}
-        onChange={props.handleChangeLogin}
+        value={values.name || ""}
+        name="name"
+        onChange={handleInputValue}
+        pattern="^[A-Za-zА-Яа-я-\s]+$"
+        minLength="2"
+        maxLength="30"
+        required
         >
         </input>
+        <span className='form__span form__span_error'>{errors.name}</span>
       </div>
       <div className="profile__inputs">
         <span className="profile__span">E-mail</span>
         <input 
         className="profile__input" 
         placeholder={currentUser?.email}
-        value={props.email || ""}
-        onChange={props.handleChangeEmail}
+        name="email" 
+        value={values.email || ""}
+        onChange={handleInputValue}
+        type="email"
+        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+        required
         ></input>
+            <span className='form__span form__span_error'>{errors.email}</span>
       </div>
-    </div>
     <div className="profile__links">
-      <a className="profile__link" href="/profile" onClick={handleSubmit}>Редактировать</a>
-      <Link className="profile__link profile__link_signout" to="/profile">Выйти из аккаунта</Link>
+      <button className={`profile__link ${!isValid && 'profile__link_error'}`} href="/profile">Редактировать</button>
+    </div>
+    </form>
+    <button className="profile__link profile__link_signout" onClick={props.signOut} type="button">Выйти из аккаунта</button>
+    <div className={`popup ${popupOpen && 'popup_open'}`}>
+      <div className="popup__content">
+        <h2 className="popup__title">Данные успешно обновлены</h2>
+        <button className="popup__cross" onClick={handlePopup}></button>
+      </div>
     </div>
   </section>
 
