@@ -45,12 +45,19 @@ const ShowFilms = (inputValue)  => {
         setMovies(res)
         localStorage.setItem('movies', JSON.stringify(res));
         const queryMoviesSearchArray = res.filter((movie) => {
-          return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
+          return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()) ||
+                 movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
         })
         setQueryMovies(queryMoviesSearchArray)
         localStorage.setItem('queryMovies', JSON.stringify(queryMoviesSearchArray));
-        console.log(queryMovies)
         checkArraySearch(queryMoviesSearchArray)
+        if (checkboxValue) {
+          setCheckboxMovies(queryMoviesSearchArray.filter((movie) => movie.duration <= 40))
+          localStorage.setItem('checkboxMovies', JSON.stringify(checkboxMovies));
+        } else {
+          setCheckboxMovies(queryMoviesSearchArray)
+          localStorage.setItem('checkboxMovies', JSON.stringify(queryMoviesSearchArray));
+        }
       })
       .catch((err) => {
         setQueryError(true)
@@ -58,15 +65,43 @@ const ShowFilms = (inputValue)  => {
       })
       .finally(() => setLoading(false))
     } else {
-      const queryMoviesSearchArray = movies.filter((movie) => {
-        return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
-      })
+    const queryMoviesSearchArray = movies.filter((movie) => {
+      return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()) ||
+              movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
+    })
     setQueryMovies(queryMoviesSearchArray)
     localStorage.setItem('queryMovies', JSON.stringify(queryMoviesSearchArray));
+    if (checkboxValue) {
+      setCheckboxMovies(queryMovies.filter((movie) => movie.duration <= 40))
+      localStorage.setItem('checkboxMovies', JSON.stringify(checkboxMovies));
+    } else {
+      setCheckboxMovies(queryMovies)
+      localStorage.setItem('checkboxMovies', JSON.stringify(queryMoviesSearchArray));
+    }
     setLoading(false)
     checkArraySearch(queryMoviesSearchArray)
   }
 }
+useEffect(() => {
+  if(!props.loggedIn) {
+    setMovies(null)
+    setQueryMovies(null)
+    setCheckboxMovies(null)
+  }
+},[props.loggedIn])
+
+
+useEffect(() => {
+  if(localStorage.getItem('movies')) {
+    setMovies(JSON.parse(localStorage.getItem('movies')))
+  }
+  if(localStorage.getItem('queryMovies')) {
+    setQueryMovies(JSON.parse(localStorage.getItem('queryMovies')))
+  }
+  if(localStorage.getItem('checkboxMovies')) {
+    setCheckboxMovies(JSON.parse(localStorage.getItem('checkboxMovies')))
+  }
+},[])
 
   const checkArraySearch = (arr) => arr.length === 0 ? setSearchError(true) : setSearchError(false)
 

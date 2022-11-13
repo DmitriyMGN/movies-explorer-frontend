@@ -6,27 +6,27 @@ import { useState, useEffect } from 'react';
 
 function SavedMovies(props) {
   const [checkboxValue, setCheckboxValue] = useState(false);
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [queryMovies, setQueryMovies] =  useState([]);
-  const [checkboxMovies, setCheckboxMovies] = useState([]);
-  const [pageMovies, setPageMovies] = useState([]);
+  const [checkboxMovies, setCheckboxMovies] =  useState([]);
+  const [searchMovies, setSearchMovies] =  useState([]);
   const [searchActive, setSearchActive] = useState(false);
+  const [queryActive, setQueryActive] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const savedMoviesPage = true;
 
   useEffect(() => {
-    setQueryMovies(props.films)
-  },[props.films])
-
-  useEffect(() => {
-    if(checkboxValue) {
+    setQueryMovies(props.films);
+    if(checkboxValue && !queryActive) {
       setQueryMovies(props.films.filter((movie) => movie.duration <= 40))
-    } else {
-      setQueryMovies(props.films);
+    } 
+    if(checkboxValue && queryActive) {
+      setQueryMovies(searchMovies.filter((movie) => movie.duration <= 40))
     }
-  }, [checkboxValue])
+    if(!checkboxValue && queryActive) {
+      setQueryMovies(searchMovies)
+    }
+  }, [checkboxValue,props.films, checkboxMovies, queryActive, searchMovies ])
 
 function handleCheckboxValueChange() {
   setCheckboxValue(!checkboxValue);
@@ -41,24 +41,29 @@ function handleShowSavedFilms(e) {
   if (inputValue) {
     setSearchActive(false)
     handleSavedShowFilms(inputValue)
+    setQueryActive(true)
   } else {
+    setQueryActive(false)
     setSearchActive(true)
   }
 }
 
 function handleSavedShowFilms(inputValue) {
-  console.log(props.films)
   const queryMoviesSearchArray = props.films.filter((movie) => {
-    return movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
+    return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()) ||
+           movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
   })
+  setSearchMovies(queryMoviesSearchArray)
+  if(checkboxValue) {
+    setCheckboxMovies(queryMoviesSearchArray.filter((movie) => movie.duration <= 40))
+    console.log("чекбоксмувис:", checkboxMovies)
+  } 
   if(queryMoviesSearchArray.length === 0) {
     setSearchError(true)
   } else {
     setSearchError(false)
   }
-  setQueryMovies(queryMoviesSearchArray)
 }
-
 
   return (
    <>

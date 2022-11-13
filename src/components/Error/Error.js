@@ -10,7 +10,7 @@ function Error () {
   <section className="error">
       <h2 className="error__title">404</h2>
       <p className="error__subtitle">Страница не найдена</p>
-      <Link className='error__exit-link' onClick={handlerGoBack}>Назад</Link>
+      <Link className='error__exit-link' onClick={handlerGoBack} to="">Назад</Link>
   </section>
   )
 }

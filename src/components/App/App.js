@@ -20,6 +20,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies ] = useState([]);
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const mainApi = new MainApi();
 
@@ -32,6 +33,7 @@ function App() {
       .authorize(password, email)
       .then(() => {
           history.push('/movies');
+          history.go('/');
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
@@ -43,13 +45,16 @@ function App() {
       .then(() => {
         setLoggedIn(true);
         history.push('/movies');
+        history.go('/');
       })
       .catch((err) => {
         setLoggedIn(false);
+        if(err === "Ошибка: 409") {
+          setPopupOpen(true)
+        }
         console.log(err)
       });
   }
-
 
   function handleSaveFilm(data) {
     mainApi
@@ -63,16 +68,6 @@ function App() {
       })
   }
 
-  function signOut(e) {
-    e.preventDefault()
-    mainApi
-    .signOut()
-    .then(() => {
-        setLoggedIn(false)
-    })
-    .catch((err) => console.log(err));
-  }
-  
   function handleRemoveSavedFilm(id) {
     mainApi
     .removeFilm(id)
@@ -88,14 +83,31 @@ function App() {
     mainApi
     .getSavedFilms()
       .then((res) => {
-        setSavedMovies(res)
+        setSavedMovies(res.filter((movie) => movie.owner === currentUser?._id))
       })
       .catch((err) => {
         console.log(err)
       })
   }
 
-  function updateData(item) {
+  useEffect(() => {
+    uploadMovies()
+  }, [loggedIn])
+
+  function signOut(e) {
+    e.preventDefault()
+    mainApi
+    .signOut()
+    .then(() => {
+        setLoggedIn(false)
+        localStorage.removeItem('movies')
+        localStorage.removeItem('queryMovies')
+        localStorage.removeItem('checkboxMovies')
+    })
+    .catch((err) => console.log(err));
+  }
+
+  function updateData(item) { 
     const data = {
       name: item.name,
       email: item.email,
@@ -104,30 +116,25 @@ function App() {
   }
 
   useEffect(() => {
-    uploadMovies()
-  }, [loggedIn])
-
-  useEffect(() => {
     mainApi
       .getUserInfo()
       .then((userData) => {
         setCurrentUser(userData);
         setLoggedIn(true);
-        history.push("/movies");
       })
       .catch((err) => console.log(err));
   }, [loggedIn, history])
 
   function handleUpdateUser(item) {
-    mainApi
-      .setUserInfo(item)
-      .then((item) => {
-        setCurrentUser(updateData(item));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+      mainApi
+        .setUserInfo(item)
+        .then((item) => {
+          setCurrentUser(updateData(item));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
 return (
   <CurrentUserContext.Provider value={currentUser}>
@@ -145,7 +152,9 @@ return (
 
         <Route path="/signup">
           <Register 
-            onRegister={handleSubmitRegister}        
+            onRegister={handleSubmitRegister}
+            popupOpen={popupOpen}
+            setPopupOpen={setPopupOpen}        
           />
           </Route>
 
@@ -173,6 +182,7 @@ return (
             component={Profile} 
             onUpdateUser={handleUpdateUser}
             signOut={signOut}
+
         /> 
 
         <Route exact path="/"><Main /></Route>

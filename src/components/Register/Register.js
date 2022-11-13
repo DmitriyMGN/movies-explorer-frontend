@@ -14,6 +14,11 @@ const handleSubmitForm = (e) => {
   props.onRegister(values.name, values.email, values.password)
 }
 
+const handlePopup = (e) => {
+  e.preventDefault()
+  props.setPopupOpen(false)
+}
+
   return (
     <section className='login'>
       <h1 className='login__title'>Добро пожаловать!</h1>
@@ -62,6 +67,12 @@ const handleSubmitForm = (e) => {
           <Link className='form__link' to="signin">Войти</Link>
         </div>
       </form>
+      <div className={`popup ${props.popupOpen && 'popup_open'}`}>
+        <div className="popup__content">
+          <h2 className="popup__title">Данный email уже зарегестрирован</h2>
+          <button className="popup__cross" onClick={handlePopup}></button>
+        </div>
+      </div>
     </section>
   )
 }
