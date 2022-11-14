@@ -9,9 +9,8 @@ import Error from "../Error/Error.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js"
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import { useState, useEffect } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 import MainApi from "../../utils/MainApi";
-
 
 function App() {
 
@@ -33,7 +32,6 @@ function App() {
       .authorize(password, email)
       .then(() => {
           history.push('/movies');
-          history.go('/');
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
@@ -45,7 +43,6 @@ function App() {
       .then(() => {
         setLoggedIn(true);
         history.push('/movies');
-        history.go('/');
       })
       .catch((err) => {
         setLoggedIn(false);
@@ -119,11 +116,12 @@ function App() {
     mainApi
       .getUserInfo()
       .then((userData) => {
-        setCurrentUser(userData);
         setLoggedIn(true);
+        setCurrentUser(userData);
       })
       .catch((err) => console.log(err));
-  }, [loggedIn, history])
+  },[loggedIn, history])
+
 
   function handleUpdateUser(item) {
       mainApi
@@ -143,11 +141,11 @@ return (
       loggedIn={loggedIn}  
        />
       <Switch>
-
         <Route path='/signin'>
           <Login 
           onLogin={handleSubmitLogin} 
           />
+          {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
         </Route>
 
         <Route path="/signup">
@@ -156,9 +154,10 @@ return (
             popupOpen={popupOpen}
             setPopupOpen={setPopupOpen}        
           />
+          {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
           </Route>
 
-        <ProtectedRoute 
+          <ProtectedRoute 
           path="/movies"
           loggedIn={loggedIn}  
           component={Movies} 
