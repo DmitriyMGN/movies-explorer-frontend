@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 import MainApi from "../../utils/MainApi";
 
+
 function App() {
 
   const history = useHistory();
@@ -20,6 +21,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies ] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [isReady, setReady] = useState(false);
 
   const mainApi = new MainApi();
 
@@ -32,6 +34,7 @@ function App() {
       .authorize(password, email)
       .then(() => {
           history.push('/movies');
+          history.go("/")
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
@@ -43,6 +46,7 @@ function App() {
       .then(() => {
         setLoggedIn(true);
         history.push('/movies');
+        history.go("/")
       })
       .catch((err) => {
         setLoggedIn(false);
@@ -119,7 +123,8 @@ function App() {
         setLoggedIn(true);
         setCurrentUser(userData);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setReady(true))
   },[loggedIn, history])
 
 
@@ -140,7 +145,7 @@ return (
       <Header 
       loggedIn={loggedIn}  
        />
-      <Switch>
+      {isReady && <Switch>
         <Route path='/signin'>
           <Login 
           onLogin={handleSubmitLogin} 
@@ -188,7 +193,7 @@ return (
         <Route path="*"><Error /></Route>
 
    
-   </Switch>
+   </Switch>}
 
     </div>
   </CurrentUserContext.Provider>
