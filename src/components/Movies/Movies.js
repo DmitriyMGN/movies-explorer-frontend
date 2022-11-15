@@ -20,9 +20,18 @@ function Movies(props) {
   const [searchActive, setSearchActive] = useState(false);
   const [searchError, setSearchError] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [firstQuery, setFirstQuery] = useState(false);
   let count;
 
-const handleCheckboxValueChange = () => setCheckboxValue(!checkboxValue);
+function handleCheckboxValueChange () {
+  setCheckboxValue(!checkboxValue);
+  if (inputValue) {
+    setSearchActive(false)
+    ShowFilms(inputValue)
+  } else {
+    setSearchActive(true)
+  }
+}
 
 const handleInputValueChange = (e) => setInputValue(e.target.value);
 
@@ -42,6 +51,7 @@ const ShowFilms = (inputValue)  => {
     MoviesApi
     .getFilms()
       .then((res) => {
+        setFirstQuery(true);
         setMovies(res)
         localStorage.setItem('movies', JSON.stringify(res));
         const queryMoviesSearchArray = res.filter((movie) => {
@@ -51,13 +61,16 @@ const ShowFilms = (inputValue)  => {
         setQueryMovies(queryMoviesSearchArray)
         localStorage.setItem('queryMovies', JSON.stringify(queryMoviesSearchArray));
         checkArraySearch(queryMoviesSearchArray)
-        if (checkboxValue) {
+
+        if(checkboxValue) {
+          localStorage.setItem('checkboxValue', true)
           setCheckboxMovies(queryMoviesSearchArray.filter((movie) => movie.duration <= 40))
-          localStorage.setItem('checkboxMovies', JSON.stringify(checkboxMovies));
+          localStorage.setItem('checkboxMovies', JSON.stringify((queryMoviesSearchArray.filter((movie) => movie.duration <= 40))));
         } else {
           setCheckboxMovies(queryMoviesSearchArray)
-          localStorage.setItem('checkboxMovies', JSON.stringify(queryMoviesSearchArray));
+          localStorage.removeItem('checkboxValue')
         }
+
       })
       .catch((err) => {
         setQueryError(true)
@@ -65,33 +78,56 @@ const ShowFilms = (inputValue)  => {
       })
       .finally(() => setLoading(false))
     } else {
-    const queryMoviesSearchArray = movies.filter((movie) => {
-      return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()) ||
-              movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
-    })
-    setQueryMovies(queryMoviesSearchArray)
-    localStorage.setItem('queryMovies', JSON.stringify(queryMoviesSearchArray));
-    if (checkboxValue) {
-      setCheckboxMovies(queryMovies.filter((movie) => movie.duration <= 40))
-      localStorage.setItem('checkboxMovies', JSON.stringify(checkboxMovies));
-    } else {
-      setCheckboxMovies(queryMovies)
-      localStorage.setItem('checkboxMovies', JSON.stringify(queryMoviesSearchArray));
-    }
-    setLoading(false)
-    checkArraySearch(queryMoviesSearchArray)
+      setFirstQuery(false);
+      const queryMoviesSearchArray = movies.filter((movie) => {
+        return movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()) ||
+                movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
+      })
+      setQueryMovies(queryMoviesSearchArray)
+      localStorage.setItem('queryMovies', JSON.stringify(queryMoviesSearchArray));
+      setLoading(false)
+      checkArraySearch(queryMoviesSearchArray)
+    
+      if(checkboxValue) {
+        localStorage.setItem('checkboxValue', true)
+        setCheckboxMovies(queryMoviesSearchArray.filter((movie) => movie.duration <= 40))
+        localStorage.setItem('checkboxMovies', JSON.stringify((queryMoviesSearchArray.filter((movie) => movie.duration <= 40))));
+        checkArraySearch(queryMoviesSearchArray.filter((movie) => movie.duration <= 40))
+      } else {
+        setCheckboxMovies(queryMoviesSearchArray)
+        localStorage.removeItem('checkboxValue')
+        checkArraySearch(queryMoviesSearchArray)
+      }
+
   }
+  localStorage.setItem('inputValue', inputValue)
 }
+
 useEffect(() => {
-  if(!props.loggedIn) {
-    setMovies(null)
-    setQueryMovies(null)
-    setCheckboxMovies(null)
+if(checkboxValue) {
+  checkArraySearch(queryMovies.filter((movie) => movie.duration <= 40))
+  setCheckboxMovies(queryMovies.filter((movie) => movie.duration <= 40))
+  localStorage.setItem('checkboxMovies', JSON.stringify(queryMovies.filter((movie) => movie.duration <= 40)));
+  localStorage.setItem('checkboxValue', true)
+
+} else if(checkboxMovies.length > 0 || queryMovies.length > 0) {
+  setCheckboxMovies(queryMovies)
+  localStorage.setItem('checkboxMovies', JSON.stringify(queryMovies));
+  localStorage.removeItem('checkboxValue')
+  checkArraySearch(queryMovies)
+  if(firstQuery) {
+    setSearchError(false)
   }
-},[props.loggedIn])
 
+}},[checkboxValue, queryMovies])
 
 useEffect(() => {
+  if(localStorage.getItem('inputValue')) {
+    setInputValue(localStorage.getItem('inputValue'))
+  }
+  if(localStorage.getItem('checkboxValue')) {
+    setCheckboxValue(true)
+  }
   if(localStorage.getItem('movies')) {
     setMovies(JSON.parse(localStorage.getItem('movies')))
   }
@@ -105,9 +141,6 @@ useEffect(() => {
 
   const checkArraySearch = (arr) => arr.length === 0 ? setSearchError(true) : setSearchError(false)
 
-  useEffect(() => checkboxValue ? setCheckboxMovies(queryMovies.filter((movie) => movie.duration <= 40))
-  : setCheckboxMovies(queryMovies), [checkboxValue, queryMovies])
-
   useEffect(() => {
     if (size.width >= 1280) {
      count = 12
@@ -118,6 +151,14 @@ useEffect(() => {
     }
    checkboxMovies.length > count ? setPageMovies(checkboxMovies.slice(0,count)) : setPageMovies(checkboxMovies);
   }, [size.width, checkboxMovies])
+
+  useEffect(() => {
+    if(!props.loggedIn) {
+      setMovies(null)
+      setQueryMovies(null)
+      setCheckboxMovies(null)
+    }
+  },[props.loggedIn])
 
   return (
    <>

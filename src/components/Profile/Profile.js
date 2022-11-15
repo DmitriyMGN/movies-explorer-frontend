@@ -25,6 +25,7 @@ const handleSubmitForm = (e) => {
   }
 
   if(values.name === currentUser?.name && values.email === currentUser?.email) {
+    props.setProfileConflict(false)
     setPopupMessage("Данные совпадают с предыдущими")
     setPopupOpen(true)
   } else {
@@ -33,6 +34,7 @@ const handleSubmitForm = (e) => {
     setPopupOpen(true)
   }
 }
+
 
 const handlePopup = (e) => {
   e.preventDefault()
@@ -73,7 +75,7 @@ const handlePopup = (e) => {
     </div>
     </form>
     <button className="profile__link profile__link_signout" onClick={props.signOut} type="button">Выйти из аккаунта</button>
-    <div className={`popup ${popupOpen && 'popup_open'}`}>
+    <div className={`popup ${popupOpen && !props.profileConflict && 'popup_open'}`}>
       <div className="popup__content">
         <h2 className="popup__title">{popupMessage}</h2>
         <button className="popup__cross" onClick={handlePopup}></button>

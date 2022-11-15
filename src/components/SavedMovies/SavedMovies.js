@@ -26,10 +26,17 @@ function SavedMovies(props) {
     if(!checkboxValue && queryActive) {
       setQueryMovies(searchMovies)
     }
-  }, [checkboxValue,props.films, checkboxMovies, queryActive, searchMovies ])
+  }, [checkboxValue,props.films, checkboxMovies, queryActive, searchMovies])
 
 function handleCheckboxValueChange() {
   setCheckboxValue(!checkboxValue);
+  if (inputValue) {
+    setSearchActive(false)
+    handleSavedShowFilms(inputValue)
+    setQueryActive(true)
+  } else {
+    setQueryActive(false)
+  }
 }
 
 function handleInputValueChange(e) {
@@ -39,8 +46,8 @@ function handleInputValueChange(e) {
 function handleShowSavedFilms(e) {
   e.preventDefault();
   if (inputValue) {
-    setSearchActive(false)
     handleSavedShowFilms(inputValue)
+    setSearchActive(false)
     setQueryActive(true)
   } else {
     setQueryActive(false)
@@ -56,7 +63,6 @@ function handleSavedShowFilms(inputValue) {
   setSearchMovies(queryMoviesSearchArray)
   if(checkboxValue) {
     setCheckboxMovies(queryMoviesSearchArray.filter((movie) => movie.duration <= 40))
-    console.log("чекбоксмувис:", checkboxMovies)
   } 
   if(queryMoviesSearchArray.length === 0) {
     setSearchError(true)
