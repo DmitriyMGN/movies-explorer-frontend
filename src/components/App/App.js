@@ -21,11 +21,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies ] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
-<<<<<<< HEAD
-const [isReady, setReady] = useState(false);
-=======
+  const [popupOpenProfile, setPopupOpenProfile] = useState(false);
+  const [profileConflict, setProfileConflict] = useState(null);
   const [isReady, setReady] = useState(false);
->>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
 
   const mainApi = new MainApi();
 
@@ -108,6 +106,8 @@ const [isReady, setReady] = useState(false);
         localStorage.removeItem('movies')
         localStorage.removeItem('queryMovies')
         localStorage.removeItem('checkboxMovies')
+        localStorage.removeItem('checkboxValue')
+        localStorage.removeItem('inputValue')
     })
     .catch((err) => console.log(err));
   }
@@ -120,6 +120,11 @@ const [isReady, setReady] = useState(false);
     return data;
   }
 
+  const handlePopup = (e) => {
+    e.preventDefault()
+    setPopupOpenProfile(false)
+  }
+
   useEffect(() => {
     mainApi
       .getUserInfo()
@@ -127,25 +132,34 @@ const [isReady, setReady] = useState(false);
         setLoggedIn(true);
         setCurrentUser(userData);
       })
-      .catch((err) => console.log(err))
-<<<<<<< HEAD
-.finally(() => setReady(true))
-  }, [loggedIn, history])
-=======
+      .catch((err) => {
+        console.log(err)
+        setLoggedIn(false)
+        localStorage.removeItem('movies')
+        localStorage.removeItem('queryMovies')
+        localStorage.removeItem('checkboxMovies')
+        localStorage.removeItem('checkboxValue')
+        localStorage.removeItem('inputValue')
+      })
       .finally(() => setReady(true))
   },[loggedIn, history])
 
->>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
 
   function handleUpdateUser(item) {
       mainApi
         .setUserInfo(item)
         .then((item) => {
+          setProfileConflict(false)
+          setPopupOpenProfile(false)
           setCurrentUser(updateData(item));
         })
         .catch((err) => {
+          if(err === "Ошибка: 409") {
+            setProfileConflict(true)
+            setPopupOpenProfile(true)
+          }
           console.log(err);
-        });
+        })
     }
 
 return (
@@ -155,19 +169,11 @@ return (
       loggedIn={loggedIn}  
        />
       {isReady && <Switch>
-<<<<<<< HEAD
-
-=======
->>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
         <Route path='/signin'>
           <Login 
           onLogin={handleSubmitLogin} 
           />
-<<<<<<< HEAD
-{loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
-=======
           {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
->>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
         </Route>
 
         <Route path="/signup">
@@ -176,11 +182,7 @@ return (
             popupOpen={popupOpen}
             setPopupOpen={setPopupOpen}        
           />
-<<<<<<< HEAD
-{loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
-=======
           {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
->>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
           </Route>
 
           <ProtectedRoute 
@@ -207,15 +209,20 @@ return (
             component={Profile} 
             onUpdateUser={handleUpdateUser}
             signOut={signOut}
+            profileConflict={profileConflict}
+            setProfileConflict={setProfileConflict}
 
         /> 
 
         <Route exact path="/"><Main /></Route>
         <Route path="*"><Error /></Route>
-
-   
    </Switch>}
-
+   <div className={`popup ${popupOpenProfile && 'popup_open'}`}>
+      <div className="popup__content">
+        <h2 className="popup__title">Данный email уже зарегестрирован</h2>
+        <button className="popup__cross" onClick={handlePopup}></button>
+      </div>
+    </div>
     </div>
   </CurrentUserContext.Provider>
 );

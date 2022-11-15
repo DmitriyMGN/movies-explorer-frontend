@@ -3,7 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import React from 'react';
 
 function SearchForm(props) {
-
+  
   return (
     <>
    <section className="searchForm">
