@@ -21,7 +21,11 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies ] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
+<<<<<<< HEAD
 const [isReady, setReady] = useState(false);
+=======
+  const [isReady, setReady] = useState(false);
+>>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
 
   const mainApi = new MainApi();
 
@@ -34,7 +38,7 @@ const [isReady, setReady] = useState(false);
       .authorize(password, email)
       .then(() => {
           history.push('/movies');
-          history.go('/');
+          history.go("/")
           setLoggedIn(true)
       })
       .catch((err) => console.log(err));
@@ -46,7 +50,7 @@ const [isReady, setReady] = useState(false);
       .then(() => {
         setLoggedIn(true);
         history.push('/movies');
-        history.go('/');
+        history.go("/")
       })
       .catch((err) => {
         setLoggedIn(false);
@@ -120,12 +124,18 @@ const [isReady, setReady] = useState(false);
     mainApi
       .getUserInfo()
       .then((userData) => {
-        setCurrentUser(userData);
         setLoggedIn(true);
+        setCurrentUser(userData);
       })
       .catch((err) => console.log(err))
+<<<<<<< HEAD
 .finally(() => setReady(true))
   }, [loggedIn, history])
+=======
+      .finally(() => setReady(true))
+  },[loggedIn, history])
+
+>>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
 
   function handleUpdateUser(item) {
       mainApi
@@ -145,12 +155,19 @@ return (
       loggedIn={loggedIn}  
        />
       {isReady && <Switch>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
         <Route path='/signin'>
           <Login 
           onLogin={handleSubmitLogin} 
           />
+<<<<<<< HEAD
 {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+=======
+          {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+>>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
         </Route>
 
         <Route path="/signup">
@@ -159,10 +176,14 @@ return (
             popupOpen={popupOpen}
             setPopupOpen={setPopupOpen}        
           />
+<<<<<<< HEAD
 {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
+=======
+          {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
+>>>>>>> 6f56e2b156da331ff98ae69a770fb100bdc77cec
           </Route>
 
-        <ProtectedRoute 
+          <ProtectedRoute 
           path="/movies"
           loggedIn={loggedIn}  
           component={Movies} 
