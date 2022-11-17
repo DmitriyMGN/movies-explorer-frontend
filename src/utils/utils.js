@@ -1,3 +1,3 @@
-const baseUrl = 'https://api.dmitriymgn.nomoredomains.club'
+const baseUrl = 'https://api.diploma.dmitriymgn.nomoredomains.icu'
 
 export default baseUrl

@@ -1,7 +1,7 @@
 import { useLocation, Link} from 'react-router-dom';
 import React from 'react';
 
-function Burger (props) {
+function Burger () {
   const [value, setValue] = React.useState(false);
 
   function handleBurger(e) {
@@ -22,12 +22,12 @@ function Burger (props) {
       <div className="burger__content">
         <button className="burder__button-cross" onClick={handleBurger}></button>
         <div className='burger__links'>
-          {<Link className="burger__link" to="">Главная</Link>} 
-          {<Link className="burger__link burger__link_active" to="">Фильмы</Link>} 
-          {<Link className="burger__link" to="">Сохраненные фильмы</Link>}
+          {<Link className="burger__link" to="/">Главная</Link>} 
+          {<Link className="burger__link burger__link_active" to="/movies">Фильмы</Link>} 
+          {<Link className="burger__link" to="/saved-movies">Сохраненные фильмы</Link>}
         </div>
       <div className="burger__links-bottom">
-        {<Link className="navbar__element navbar__element_burger" to="">Аккаунт</Link>}
+        {<Link className="navbar__element navbar__element_burger" to="/profile">Аккаунт</Link>}
         <button className="navbar__element navbar__avatar-icon"></button>
       </div>
       </div>

@@ -1,4 +1,4 @@
-function AboutProject(props) {
+function AboutProject() {
 
   return (
    <section className="project">
